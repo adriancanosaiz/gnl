@@ -6,7 +6,7 @@
 /*   By: acano-sa <acano-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:20:00 by acano-sa          #+#    #+#             */
-/*   Updated: 2025/10/15 18:20:12 by acano-sa         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:26:47 by acano-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 char	*get_next_line(int fd)
 {
 	static char	*remainder[FD_MAX];
-	char		buffer[BUFFER_SIZE + 1];
+	char		*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FD_MAX)
 		return (NULL);
-	remainder[fd] = read_and_accumulate(fd, remainder[fd], buffer);
-	if (!remainder[fd])
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
 		return (NULL);
-	if (remainder[fd][0] == '\0')
+	remainder[fd] = read_and_accumulate(fd, remainder[fd], buffer);
+	free(buffer);
+	if (!remainder[fd] || remainder[fd][0] == '\0')
 	{
 		free(remainder[fd]);
 		remainder[fd] = NULL;

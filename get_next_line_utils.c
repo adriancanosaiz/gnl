@@ -6,7 +6,7 @@
 /*   By: acano-sa <acano-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:10:05 by acano-sa          #+#    #+#             */
-/*   Updated: 2025/10/15 18:10:16 by acano-sa         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:17:05 by acano-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!res)
+	{
+		free(s1);
 		return (NULL);
+	}
 	i = 0;
 	while (s1 && s1[i])
 	{
